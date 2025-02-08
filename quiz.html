@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Perguntas</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        #quiz-container { max-width: 500px; margin: auto; }
+        button { display: block; margin: 10px auto; padding: 10px; }
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <h1>Quiz de Perguntas para Joana D'Arc</h1>
+        <p id="pergunta"></p>
+        <div id="opcoes"></div>
+        <p id="resultado"></p>
+    </div>
+    
+    <script>
+        const perguntas = [
+            { pergunta: "Qual foi o primeiro lanche juntos?", opcoes: ["Hambúrguer", "Cachorro quente", "Pizza"], correta: 2 },
+            { pergunta: "O primeiro beijo foi na chuva?", opcoes: ["Não", "Sim", "Nunca teve"], correta: 1 },
+            { pergunta: "Qual estilo de música Guilherme criou para você?", opcoes: ["Funk", "Sertanejo", "Rock"], correta: 1 },
+            { pergunta: "Qual foi seu primeiro mimo?", opcoes: ["Flores", "Batom", "Chocolate"], correta: 2 },
+            { pergunta: "Qual a cor da roupa que estava no primeiro encontro?", opcoes: ["Azul", "Verde", "Vermelho"], correta: 2 },
+            { pergunta: "Quantos anos tem Guilherme Mendes?", opcoes: ["22", "24", "25"], correta: 1 },
+            { pergunta: "O que você achou na ilha em Governador Valadares?", opcoes: ["Isqueiro", "Cigarro", "Dinheiro"], correta: 0 },
+            { pergunta: "O segundo encontro foi no:", opcoes: ["Evandro's Dog", "Shopping", "Rei Davi"], correta: 0 },
+            { pergunta: "Qual foi o dia do mês de dezembro que se conheceram?", opcoes: ["12", "15", "17"], correta: 2 },
+            { pergunta: "Dia 17 de dezembro de 2024 foi qual dia da semana?", opcoes: ["Segunda", "Terça", "Quarta"], correta: 1 },
+            { pergunta: "Guilherme realmente gosta de você?", opcoes: ["Sim", "Não", "Nunca gostou"], correta: 0 }
+        ];
+        
+        let perguntaAtual = 0;
+        
+        function carregarPergunta() {
+            if (perguntaAtual >= perguntas.length) {
+                document.getElementById("quiz-container").innerHTML = "<h1>Parabéns! Você completou o quiz!</h1>";
+                return;
+            }
+            const p = perguntas[perguntaAtual];
+            document.getElementById("pergunta").textContent = p.pergunta;
+            document.getElementById("opcoes").innerHTML = "";
+            p.opcoes.forEach((opcao, index) => {
+                const btn = document.createElement("button");
+                btn.textContent = opcao;
+                btn.onclick = () => verificarResposta(index);
+                document.getElementById("opcoes").appendChild(btn);
+            });
+        }
+        
+        function verificarResposta(escolha) {
+            if (escolha === perguntas[perguntaAtual].correta) {
+                perguntaAtual++;
+                carregarPergunta();
+            } else {
+                alert("Você errou! Voltando ao início...");
+                perguntaAtual = 0;
+                carregarPergunta();
+            }
+        }
+        
+        carregarPergunta();
+    </script>
+</body>
+</html>
